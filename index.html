@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brave Gym || Landing Page</title>
+    <link href="global.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navigation-menu">
+      <div id="logo"><a href="#homepage-section">Logo</a></div>
+      <ul>
+        <li><a href="#homepage-section">Home</a></li>
+        <li><a href="#about-section">About Us</a></li>
+        <li><a href="#membership-section">Memberships</a></li>
+        <li><a href="#creative-section">BMI Calculator</a></li>
+      </ul>
+    </header>
+    <main>
+        <div id="homepage-section">
+            <p>Be Brave. <br> Be Strong.</p>
+            <div id="running-man">
+                <img id="running-man-img" src="assets/running_man.png" alt="A grayscale image of a man running.">
+                <div class="small-circle"></div>
+                <div class="big-circle"></div>
+            </div>
+        </div>
+
+        <div id="about-section">
+          <h1>About Us</h1>
+          <p>At Brave Gym, our mission statement is to help you be your best and to help you be at your fittest possible state.</p>
+          <div id="button-group">
+            <button onclick="document.getElementById('membership-section').scrollIntoView({behavior: 'smooth'});">Get Membership</button>
+            <button onclick="document.getElementById('creative-section').scrollIntoView({behavior: 'smooth'});">Check BMI</button>
+          </div>
+        </div>
+
+        <div id="membership-section">
+            <h1>Membership Plans:</h1>
+            <div id="membership-container">
+
+                <div class="membership">
+                    <div class="header">
+                        <h1>Tier 2</h1>
+                        <p>$25/month</p>
+                    </div>
+
+                    <h4>Benefits</h4>
+                    <div class="benefits">
+                        <p>Access to facility and equipment</p>
+                        <p>90 minute consultation with specialist</p>
+                        <p>Access to event offerings</p>
+                    </div>
+                    <button onclick="openModal()">Sign up</button>
+                </div>
+
+                <div class="membership">
+                    <div class="header">
+                        <h1>Tier 1</h1>
+                        <p>$15/month</p>
+                    </div>
+
+                    <h4>Benefits</h4>
+                    <div class="benefits">
+                        <p>Access to facility and equipment</p>
+                        <p>30 minute consultation with specialist</p>
+                    </div>
+                    <button onclick="openModal()">Sign up</button>
+                </div>
+
+                <div class="membership">
+                    <div class="header">
+                        <h1>Tier 3</h1>
+                        <p>$30/month</p>
+                    </div>
+
+                    <h4>Benefits</h4>
+                    <div class="benefits">
+                        <p>Access to facility and equipment</p>
+                        <p>180 minute consultation with specialist</p>
+                        <p>Access to event offerings</p>
+                        <p>Access to premium workout videos</p>
+                    </div>
+                    <button onclick="openModal()">Sign up</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="creative-section">
+          <div id="bmi-calculator">
+            <h1>Calculate BMI</h1>
+            <label for="feet">Height (Feet):</label>
+            <input type="number" id="feet" placeholder="Feet">
+
+            <label for="inches">Height (Inches):</label>
+            <input type="number" id="inches" placeholder="Inches">
+
+            <label for="weight">Weight (Pounds):</label>
+            <input type="number" id="weight" placeholder="Weight in pounds">
+
+            <button id="calculate-button" style="background-color: black; color: white;">Calculate</button>
+          </div>
+        </div>
+    </main>
+    <footer></footer>
+
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Membership Registration</h2>
+            <form id="registrationForm">
+                <h3>Enter your personal info</h3>
+
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="address">Home Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your home address" required>
+
+                <label for="cardNumber">Credit Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter your credit card number" required>
+
+                <label for="expiryDate">Expiry Date</label>
+                <input type="month" id="expiryDate" name="expiryDate" required>
+
+                <button type="submit">Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="modalPopup.js"></script>
+    <script>
+    document.getElementById('calculate-button').onclick = function() {
+        const feet = document.getElementById('feet').value;
+        const inches = document.getElementById('inches').value;
+        const weight = document.getElementById('weight').value;
+        const button = document.getElementById('calculate-button');
+
+        // Check for missing data
+        if (!feet || !inches || !weight) {
+            button.style.backgroundColor = "lightgray"; // Light background for incomplete data
+            alert("Please fill in all fields.");
+            return;
+        } else {
+            button.style.backgroundColor = "black"; // Reset color if all fields are provided
+        }
+
+        // Convert height to meters and weight to kilograms
+        const heightInMeters = (parseInt(feet) * 0.3048) + (parseInt(inches) * 0.0254);
+        const weightInKg = parseFloat(weight) * 0.453592;
+
+        // Calculate BMI
+        const bmi = weightInKg / (heightInMeters * heightInMeters);
+        let status;
+
+        // Determine BMI category
+        if (bmi < 18.5) {
+            status = "Underweight";
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            status = "Healthy";
+        } else if (bmi >= 25 && bmi < 29.9) {
+            status = "Overweight";
+        } else {
+            status = "Obese";
+        }
+
+        // Alert the user with their BMI category
+        window.alert("Your BMI is " + bmi.toFixed(2) + ". You are " + status + ".");
+    };
+</script>
+</body>
+</html>
